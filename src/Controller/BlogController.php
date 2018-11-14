@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class BlogController
+ * @package App\Controller
+ * @Route("/blog")
+ */
 class BlogController extends AbstractController
 {
     /**
