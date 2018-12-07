@@ -8,6 +8,7 @@
 namespace App\Controller;
 
 
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,6 +68,7 @@ class BlogController extends AbstractController
         $posts[uniqid()] = [
             'title' => 'Random title ' . rand(1, 500),
             'text' => 'Random text ' . rand(1, 500),
+            'date' => new DateTime(),
         ];
         $this->session->set('posts', $posts);
 
