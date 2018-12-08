@@ -38,6 +38,10 @@ services:
     #        public: true
     #        alias: App\Service\Greeting
 
+    App\Twig\AppExtension:
+        arguments:
+            $locale: '%locale%'
+
     # If autowire will be off(example):
     #App\Controller\BlogController: ['@App\Service\Greeting']
     #App\Service\Greeting: ['@monolog.logger']

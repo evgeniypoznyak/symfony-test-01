@@ -9,10 +9,26 @@ namespace App\Twig;
 
 
 use Twig\Extension\AbstractExtension;
+use Twig\Extension\GlobalsInterface;
 use Twig\TwigFilter;
 
-class AppExtension extends AbstractExtension
+class AppExtension extends AbstractExtension implements GlobalsInterface
 {
+    /**
+     * @var string
+     */
+    private $locale;
+
+    /**
+     * AppExtension constructor.
+     * @param string $locale
+     */
+    public function __construct(string $locale)
+    {
+
+        $this->locale = $locale;
+    }
+
     /**
      * @return array
      */
@@ -20,6 +36,13 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFilter('price', [$this, 'priceFilter']),
+        ];
+    }
+
+    public function getGlobals()
+    {
+        return [
+            'locale' => $this->locale,
         ];
     }
 
