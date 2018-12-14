@@ -1,6 +1,20 @@
+$color: #0acbff;
+
 body {
-    background-color: pink;
-    div {
-        background-color: #718C00;
-    }
+
+  .iBeenUsed {
+    background-color: $color;
+  }
+
+  background-color: pink;
+
+  div {
+    background-color: #718C00;
+  }
 }
+
+.iNeverBeenUsed {
+  color: $color;
+}
+
+

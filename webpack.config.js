@@ -1,4 +1,9 @@
 var Encore = require('@symfony/webpack-encore');
+const path = require('path');
+const glob = require('glob');
+const PurifyCSSPlugin = require('purifycss-webpack');
+const purifyCSSParameter = Encore.isProduction() ? '' : '*';
+
 
 Encore
 // directory where compiled assets will be stored
@@ -23,6 +28,29 @@ Encore
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
+    .configureBabel(function () {
+        return {
+            "plugins": [
+                ["@babel/plugin-proposal-class-properties", { "loose": true }]
+            ],
+            "presets": [
+                [
+                    "@babel/preset-env",
+                    {
+                        "targets": {
+                            ie: "8",
+                            edge: "17",
+                            firefox: "60",
+                            chrome: "67",
+                            safari: "11.1",
+                        },
+                        "useBuiltIns": "entry"
+                    }
+                ]
+            ]
+        }
+    })
+
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
@@ -45,12 +73,25 @@ Encore
     // enables Sass/SCSS support
     .enableSassLoader()
 
+    // .addPlugin(new ExtractTextPlugin('[name].[contenthash].css'))
+
     // uncomment if you use TypeScript
     // .enableTypeScriptLoader()
     .enableTypeScriptLoader(function (typeScriptConfigOptions) {
         typeScriptConfigOptions.transpileOnly = true;
         typeScriptConfigOptions.configFile = 'tsconfig.json';
     })
+    .addPlugin(
+        new PurifyCSSPlugin(
+            {
+                minimize: Encore.isProduction(),
+                paths: glob.sync(path.join(__dirname, 'templates/*/*.twig')),
+                purifyOptions: {
+                    whitelist: [purifyCSSParameter]
+                }
+            }
+        )
+    )
 
 // uncomment if you're having problems with a jQuery plugin
 //.autoProvidejQuery()

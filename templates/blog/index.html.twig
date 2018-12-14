@@ -3,8 +3,8 @@
 
 {% block body %}
     {% for id, post in posts %}
-        <p1>Blog ID: <a href="{{ path('blog_show', {'id': id}) }}" >{{ id }}</a></p1>
+        <p>Blog ID: <a href="{{ path('blog_show', {'id': id}) }}" >{{ id }}</a></p>
         <h3>Post title: {{ post.title }}</h3>
-        <p>{{ post.text }}</p>
+        <div class="iBeenUsed">{{ post.text }}</div>
     {% endfor %}
 {% endblock %}
