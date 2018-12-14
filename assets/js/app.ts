@@ -11,9 +11,18 @@ require('../css/app.scss');
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // var $ = require('jquery');
 
+interface Test {
+  justString: string;
+}
 
-const test = 'Hellofdsdsdsdfsdf';
+class Best implements Test{
+   static test = '123';
+    justString: string = 'poop';
+}
 
+const test = Best.test;
+const test2 = new Best();
 alert(test);
+alert(test2.justString);
 
-console.log('Hello123 Webpack Encore! Edit me in assets/js/app.js');
+console.log('Hello Webpack Encore! Edit me in assets/js/app.js');

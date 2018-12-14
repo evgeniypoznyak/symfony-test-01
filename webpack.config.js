@@ -17,8 +17,8 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
-    .addEntry('app', './assets/js/app.js')
-    .addEntry('app1', './assets/js/app.js')
+    .addEntry('app', './assets/js/app.ts')
+    // .addEntry('app1', './assets/js/app.js')
     //.addStyleEntry('scss/app', './assets/css/app.scss')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
@@ -46,11 +46,11 @@ Encore
     .enableSassLoader()
 
     // uncomment if you use TypeScript
-    // .enableTypeScriptLoader(function () {
-    //     return {
-    //         "compilerOptions": {"sourceMap": true},
-    //     }
-    // })
+    // .enableTypeScriptLoader()
+    .enableTypeScriptLoader(function (typeScriptConfigOptions) {
+        typeScriptConfigOptions.transpileOnly = true;
+        typeScriptConfigOptions.configFile = 'tsconfig.json';
+    })
 
 // uncomment if you're having problems with a jQuery plugin
 //.autoProvidejQuery()
