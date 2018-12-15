@@ -8,24 +8,24 @@
 // any CSS you require will output into a single css file (app.css in this case)
 require('../css/app.scss');
 
-import {Wow} from './test/app-test.js'
+import { Wow } from './test/app-test.js';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // var $ = require('jquery');
 
 interface Test {
-  justString: string;
+    justString: string;
 }
 
-class Best implements Test{
-   static test = '123';
+class Best implements Test {
+    static test = '123';
     justString: string = 'poop';
 }
 
 const test = Best.test;
 const test2 = new Best();
-// alert(test);
-// alert(test2.justString);
-// alert(Wow.wow);
 
+console.log(test);
+console.log(test2.justString);
+console.log(Wow.wow);
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
