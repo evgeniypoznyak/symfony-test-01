@@ -2,7 +2,7 @@ var Encore = require('@symfony/webpack-encore');
 const path = require('path');
 const glob = require('glob');
 const PurifyCSSPlugin = require('purifycss-webpack');
-const purifyCSSParameter = Encore.isProduction() ? '' : '*';
+const purifyCSSParameter = Encore.isProduction() ? '*' : '*';
 
 
 Encore
