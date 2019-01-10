@@ -25,7 +25,7 @@ security:
                 check_path: security_login
                 login_path: security_login
                 csrf_token_generator: security.csrf.token_manager
-                default_target_path: micro_post_index # куда после успешного логина будет перенаправлен
+                default_target_path: micro_post_index
             #                always_use_default_target_path: false
             #                use_referer: true
             #                failure_path:
@@ -41,4 +41,4 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
     #         - { path: ^/micro-post, roles: ROLE_USER }
-    # - { path: ^/profile, roles: ROLE_USER } 
+    # - { path: ^/profile, roles: ROLE_USER }
