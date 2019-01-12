@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="col-6">
+            {{ form_start(form) }}
+
+            {{ form_widget(form) }}
+            {#{{ form_row(form) }}#}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+{% endblock %}
