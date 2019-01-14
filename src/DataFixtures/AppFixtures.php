@@ -23,8 +23,8 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $this->loadMicropost($manager);
         $this->loadUsers($manager);
+        $this->loadMicropost($manager);
     }
 
     private function loadMicropost(ObjectManager $manager)
@@ -36,6 +36,7 @@ class AppFixtures extends Fixture
                 'Lorem Ipsum is simply. [' . rand(0, 100) . ']'
             );
             $microPost->setTime(new \DateTime('2018-12-18'));
+            $microPost->setUser($this->getReference('poop'));
             $manager->persist($microPost);
         }
         // $product = new Product();
@@ -53,6 +54,8 @@ class AppFixtures extends Fixture
         $user->setEmail('jdoe@mail.com');
         $user->setPassword($this->passwordEncoder->encodePassword($user, 'poop123'));
 
+        $this->addReference('poop', $user);
+        
         $manager->persist($user);
         $manager->flush();
     }

@@ -3,6 +3,8 @@
 {% block title %}Single post = {{ post.id }} ={% endblock %}
 
 {% block body %}
+    {% block navigation %}
+    {% endblock %}
     <style type="text/css">
         #left {
             padding-right: 3px !important;
@@ -11,6 +13,7 @@
         #middle {
             /*padding-left: 3px !important;*/
         }
+
         #right {
             padding-left: 3px !important;
         }
@@ -32,6 +35,7 @@
                                 Open
                             </a>
                         </div>
+                        {% if app.user and is_granted('ROLE_USER') %}
                         <div class="col-4" style="padding: 0; margin: 0" id="middle">
                             <a class="btn btn-block btn-outline-warning"
                                style="text-decoration: none" href="{{ path('micro_post_edit', { id: post.id } ) }}">
@@ -44,14 +48,14 @@
                                 Delete
                             </a>
                         </div>
+                        {% endif %}
                     </div>
                     <div class="list-group-item">
                         {{ post.text }}
                     </div>
                     <div class="list-group-item">
-                        {{ post.time | date('m/d/Y') }}
+                        {{ post.user.username }} -  {{ post.time | date('m/d/Y') }}
                     </div>
-
                 </div>
             </div>
 

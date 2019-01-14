@@ -132,7 +132,7 @@ class User implements UserInterface, \Serializable
      * and populated in any number of different ways when the user object
      * is created.
      *
-     * @return (Role|string)[] The user roles
+     * @return (Role|string)[] | void The user roles
      */
     public function getRoles()
     {
