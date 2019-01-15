@@ -6,6 +6,7 @@ use App\Entity\MicroPost;
 use App\Form\MicroPostType;
 use App\Repository\MicroPostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,7 @@ use Symfony\Component\Routing\RouterInterface;
  * Class MicroPostController
  * @package App\Controller
  * @Route("/micro-post")
+ * // @ Security ("is_granted('ROLE_USER')", message="LA-LA! Access Denied") -  Protect all controller and child routes
  */
 class MicroPostController extends AbstractController
 {
@@ -74,12 +76,17 @@ class MicroPostController extends AbstractController
 
     /**
      * @Route("/edit/{id}", name="micro_post_edit")
+     * // microPost - variable name fetched by param converter
+     * @Security("is_granted('edit', microPost)", message="LOL!!! Access Denied") 
      * @param MicroPost $microPost
      * @param Request $request
      * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function edit(MicroPost $microPost, Request $request)
     {
+
+        // $this->denyAccessUnlessGranted('edit', $microPost, message='Oops! Access Denied');
+
         $form = $this->formFactory->create(MicroPostType::class, $microPost);
         $form->handleRequest($request);
 
@@ -99,11 +106,13 @@ class MicroPostController extends AbstractController
 
     /**
      * @Route("/delete/{id}", name="micro_post_delete")
+     * @Security("is_granted('delete', microPost)", message="Oops! Access Denied")
      * @param MicroPost $microPost
      * @return RedirectResponse
      */
     public function delete(MicroPost $microPost)
     {
+//        $this->denyAccessUnlessGranted('delete', $microPost);
         $this->entityManager->remove($microPost);
         $this->entityManager->flush();
         $this->flashBag->add('notice', 'Micropost was deleted');

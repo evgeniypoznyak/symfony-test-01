@@ -54,7 +54,7 @@ class MicroPost
      * @param string $text
      * @return MicroPost
      */
-    public function setText(?string $text): self
+    public function setText(?string $text): ?self
     {
         $this->text = $text;
 
@@ -73,7 +73,7 @@ class MicroPost
      * @param mixed $time
      * @return MicroPost
      */
-    public function setTime($time): self
+    public function setTime($time): ?self
     {
         $this->time = $time;
 
@@ -83,7 +83,7 @@ class MicroPost
     /**
      * @return User
      */
-    public function getUser()
+    public function getUser(): User
     {
         return $this->user;
     }

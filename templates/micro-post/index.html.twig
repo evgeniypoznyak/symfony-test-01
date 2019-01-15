@@ -21,11 +21,11 @@
                 {% endfor %}
 
 
-                {% if app.user and is_granted('ROLE_USER') %}
+              
                     <div class="text-right">
                         <a class="btn btn-outline-success" href="{{ path('micro_post_add') }}">Add new</a>
                     </div>
-                {% endif %}
+             
 
                 <div>
                     {% for post in posts %}

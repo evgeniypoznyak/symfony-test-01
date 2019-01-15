@@ -24,6 +24,8 @@
         }
     </style>
 
+
+
     <div class="container">
         <div class="row">
             <div class="col">
@@ -35,7 +37,11 @@
                                 Open
                             </a>
                         </div>
-                        {% if app.user and is_granted('ROLE_USER') %}
+
+                                        
+                        
+                        {% if is_granted('edit', post) %}
+
                         <div class="col-4" style="padding: 0; margin: 0" id="middle">
                             <a class="btn btn-block btn-outline-warning"
                                style="text-decoration: none" href="{{ path('micro_post_edit', { id: post.id } ) }}">
@@ -49,6 +55,8 @@
                             </a>
                         </div>
                         {% endif %}
+
+
                     </div>
                     <div class="list-group-item">
                         {{ post.text }}
@@ -61,5 +69,11 @@
 
         </div>
     </div>
+    
+
+    {##}
+    {#{% if is_granted('edit', post) %}#}
+        {#<h1>HELLO WORLD</h1>#}
+    {#{% endif %}#}
 
 {% endblock %}

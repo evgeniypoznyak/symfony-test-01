@@ -13,7 +13,7 @@ use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class MicroPostVoter extends Voter 
+class MicroPostVoter extends Voter
 {
     public const EDIT = 'edit';
     public const DELETE = 'delete';
@@ -33,6 +33,7 @@ class MicroPostVoter extends Voter
             return false;
         }
 
+        // only vote on MicroPost objects inside this voter
         if (!$subject instanceof MicroPost) {
             return false;
         }
@@ -50,20 +51,55 @@ class MicroPostVoter extends Voter
      *
      * @return bool
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool 
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
-        // supports - Always calls first!
+       
 
         $authenticatedUser = $token->getUser();
 
         if (!$authenticatedUser instanceof User) {
+            // the user must be logged in; if not, deny access
             return false;
         }
 
+        // you know $subject is a Post object, thanks to supports
         /** @var MicroPost $microPost */
         $microPost = $subject;
 
-        return ($microPost->getUser()->getId() === $authenticatedUser->getId());
+        switch ($attribute) {
+            case self::EDIT:
+                return $this->canEdit($microPost, $authenticatedUser);
+            case self::DELETE:
+                return $this->canDelete($microPost, $authenticatedUser);
+        }
+
+        throw new \LogicException('This code should not be reached!');
+        
+    }
+
+
+    /**
+     * @param MicroPost $microPost
+     * @param User $user
+     * @return bool
+     */
+    public function canEdit(MicroPost $microPost, User $user): bool
+    {
+
+        // this assumes that the data object has a getUser() method
+        // to get the entity of the user who owns this data object
+        return $user->getId() === $microPost->getUser()->getId();
 
     }
+
+    /**
+     * @param MicroPost $microPost
+     * @param User $user
+     * @return bool
+     */
+    public function canDelete(MicroPost $microPost, User $user): bool
+    {
+        return $this->canEdit($microPost, $user);
+    }
+
 }
