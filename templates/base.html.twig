@@ -16,7 +16,7 @@
                href="{{ path('micro_post_index') }}">Micro Post App</a>
             <div class="w-100 order-1 order-md-0">
                 <ul class="navbar-nav px-3">
-                    {% if app.user and is_granted('ROLE_USER') %}
+                    {% if app.user and is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <li class="nav-item text-nowrap">
                             <a class="nav-link" href="{{ path('micro_post_add') }}">Add new</a>
                         </li>
@@ -26,7 +26,7 @@
 
             <div class="order-2 order-md-1">
                 <ul class="navbar-nav px-3">
-                    {% if app.user and is_granted('ROLE_USER') %}
+                    {% if app.user and is_granted('IS_AUTHENTICATED_REMEMBERED')%}
                         <li class="nav-item text-nowrap">
                             <a class="nav-link"
                                href="#">{{ app.user.fullName }}</a>
