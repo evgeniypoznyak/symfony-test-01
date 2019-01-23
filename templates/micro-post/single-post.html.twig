@@ -50,7 +50,10 @@
                         {{ post.text }}
                     </div>
                     <div class="list-group-item">
-                        {{ post.user.username }} - {{ post.time | date('m/d/Y') }}
+                        <a href="{{ path('micro_post_user', { 'username': post.user.username }) }}">
+                            {{ post.user.username }}
+                        </a>
+                        - {{ post.time | date('m/d/Y') }}
                     </div>
 
                 </div>

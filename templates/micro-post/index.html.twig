@@ -23,7 +23,9 @@
 
               
                     <div class="text-right">
+                        {% if app.user and is_granted('ROLE_USER') %}
                         <a class="btn btn-outline-success" href="{{ path('micro_post_add') }}">Add new</a>
+                        {% endif %}
                     </div>
              
 

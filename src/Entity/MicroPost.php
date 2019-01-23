@@ -21,7 +21,7 @@ class MicroPost
     /**
      * @ORM\Column(type="string", length=280, nullable=true)
      * @Assert\NotBlank()
-     * @Assert\Length(min="10", minMessage="Please include more characters at leas 10 needed!")
+     * @Assert\Length(min="10", minMessage="Please include more characters at least 10 needed!")
      */
     private $text;
 
@@ -32,7 +32,7 @@ class MicroPost
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")
-     * @ORM\JoinColumn()
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 

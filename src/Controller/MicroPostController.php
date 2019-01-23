@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\MicroPost;
+use App\Entity\User;
 use App\Form\MicroPostType;
 use App\Repository\MicroPostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -77,7 +78,7 @@ class MicroPostController extends AbstractController
     /**
      * @Route("/edit/{id}", name="micro_post_edit")
      * // microPost - variable name fetched by param converter
-     * @Security("is_granted('edit', microPost)", message="LOL!!! Access Denied") 
+     * @Security("is_granted('edit', microPost)", message="LOL!!! Access Denied")
      * @param MicroPost $microPost
      * @param Request $request
      * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -122,14 +123,17 @@ class MicroPostController extends AbstractController
 
     /**
      * @Route ("/add", name="micro_post_add")
+     * @Security("is_granted('ROLE_USER')", message="Oops! You are not authenticated!")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
     public function add(Request $request)
     {
+        $user = $this->getUser();
         $microPost = new MicroPost();
         $microPost->setTime(new \DateTime());
+        $microPost->setUser($user);
         $form = $this->formFactory->create(MicroPostType::class, $microPost);
         $form->handleRequest($request);
 
@@ -147,6 +151,28 @@ class MicroPostController extends AbstractController
             ]
         );
 
+    }
+
+    /**
+     * @Route("/user/{username}", name="micro_post_user")
+     * @param User $userWithPosts
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function userPosts(User $userWithPosts)
+    {
+//        $posts = $this->microPostRepository->findBy(
+//            ['user' => $userWithPosts],
+//            ['time' => 'DESC']
+//        );
+
+        $posts = $userWithPosts->getPosts();
+
+        return $this->render(
+            'micro-post/index.html.twig',
+            [
+                'posts' => $posts,
+            ]
+        );
     }
 
     /**
