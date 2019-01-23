@@ -132,7 +132,7 @@ class MicroPostController extends AbstractController
     {
         $user = $this->getUser();
         $microPost = new MicroPost();
-        $microPost->setTime(new \DateTime());
+//        $microPost->setTime(new \DateTime());
         $microPost->setUser($user);
         $form = $this->formFactory->create(MicroPostType::class, $microPost);
         $form->handleRequest($request);
